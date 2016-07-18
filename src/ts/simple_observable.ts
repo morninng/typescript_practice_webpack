@@ -50,8 +50,32 @@ class simple_observable{
 			}
 		)
 
+	}
+
+		/*****lesson 53 combine multiple observable****/
+
+	MouseMoveClickObservable(): void{
+
+		const click$ = Observable.fromEvent(document, 'click')
+							.do((click:MouseEvent)=>{
+								console.log("clicked" , click.clientY);
+							});
+		const mouse$ = Observable.fromEvent(document, 'mousemove')
+							.filter((move:MouseEvent) =>{
+								return move.clientY >=200
+							}));
+		const combined$ = Observable.combineLatest(mouse$, click$);
+		combined$.subscribe(
+			(combined) =>{
+				console.log(combined[0]);
+			}
+		);
+
+
 
 	}
+
+
 }
 
 
