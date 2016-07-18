@@ -38,6 +38,19 @@ class simple_observable{
 				console.log("completed");
 			}
 		);
+
+		/*****lesson 52 map operator****/
+
+		const firstLesson$ = lessons$.map(lessons =>{
+			return lessons[0]
+			)
+		firstLesson$.subscribe(
+			lesson => {
+				console.log("first lesson is" + lesson);
+			}
+		)
+
+
 	}
 }
 
