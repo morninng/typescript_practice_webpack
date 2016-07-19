@@ -1,6 +1,6 @@
 "use strict";
 
-import {Observable} from "./../../node_modules/rxjs/Rx";
+import {Observable, Subject } from "./../../node_modules/rxjs/Rx";
 
 class simple_observable{
 
@@ -173,8 +173,31 @@ class simple_observable{
 			console.log("unsubscribe");
 			subscription.unsubscribe();
 		},3000)
-
 	}
+
+	Lig_sub_sub_4(): any{
+
+		const onNext :any = (num: number) =>{
+			console.log("onNext" + num);
+		}
+		const onError :any = (error) =>{
+			console.log("error" + error);
+		}
+		const onComplete :any = () => {
+			console.log("onComplete");
+		}
+
+		const Sub_obj = new Subject();
+		const subscription = Sub_obj.subscribe(onNext, onError, onComplete);
+
+		Sub_obj.next(1);
+		Sub_obj.next(1);
+		Sub_obj.next(2);
+		Sub_obj.next(2);
+		Sub_obj.complete();
+		Sub_obj.unsubscribe();
+	}
+
 
 
 

@@ -8,5 +8,5 @@ person.say();
 import Simple_observable from './simple_observable'
 
 var simple_ob = new Simple_observable();
-simple_ob.Lig_sub_ob_3();
+simple_ob.Lig_sub_sub_4();
 
