@@ -138,6 +138,44 @@ class simple_observable{
 	}
 
 
+	Lig_sub_ob_3(): any{
+
+		const source :any = Observable.create((observer) =>{
+			let num :number= 0;
+			const id = setInterval(() => {
+				observer.next(num++);
+			}, 100);
+
+			setTimeout(()=> {
+				console.log("call complete");
+				observer.complete();
+			},1000)
+
+			return () =>{
+				console.log("call disposed");
+				clearInterval(id);
+			}
+		})
+
+		const onNext :any = function(num: number){
+			console.log("onNext" + num);
+		}
+		const onError :any = function(error){
+			console.log("error" + error);
+		}
+		const onComplete :any = function(){
+			console.log("onComplete");
+		}
+
+		const subscription = source.subscribe(onNext, onError, onComplete);
+
+		setTimeout(()=>{
+			console.log("unsubscribe");
+			subscription.unsubscribe();
+		},3000)
+
+	}
+
 
 
 
