@@ -1,6 +1,8 @@
 "use strict";
 
-import {Observable, Subject } from "./../../node_modules/rxjs/Rx";
+import {Observable , Subject } from "./../../node_modules/rxjs/Rx";
+
+//import {$} from "jquery";
 
 class simple_observable{
 
@@ -174,6 +176,8 @@ class simple_observable{
 			subscription.unsubscribe();
 		},3000)
 	}
+
+
 
 	Lig_sub_sub_4(): any{
 
