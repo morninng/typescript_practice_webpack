@@ -15,7 +15,7 @@ simple_ob.Lig_sub_ob_3();
 */
 
 var rxjs_practice_obj = new Rxjs_LigPractice();
-rxjs_practice_obj.lig_practice_1_drag()
+rxjs_practice_obj.lig_practice_2_databind()
 
 /*
 

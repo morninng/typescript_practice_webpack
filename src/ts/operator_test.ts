@@ -22,6 +22,8 @@ class Rxjs_Operator_Test{
         );
     }
 
+
+//http://reactivex.io/documentation/operators/flatmap.html
 	FlatMap_test1(): any{
 
         const source = Observable.from([1,2,3])

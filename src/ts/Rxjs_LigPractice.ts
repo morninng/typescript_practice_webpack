@@ -1,6 +1,6 @@
 "use strict";
 
-import {Observable  } from "./../../node_modules/rxjs/Rx";
+import {Observable, BehaviorSubject } from "./../../node_modules/rxjs/Rx";
 
 
 
@@ -42,6 +42,8 @@ class Rxjs_LigPractice{
 			}
 		);
 
+
+
 		source.subscribe((pos)=>{
 			console.log("pos X" , pos.left , "pos y" , pos.top);
 			console.log("left", box_element.style.left , "top", box_element.style.top  )
@@ -52,6 +54,49 @@ class Rxjs_LigPractice{
 		
 	}
 
+
+	lig_practice_2_databind(): any{
+
+/*
+how to retrieve element under some element
+http://stackoverflow.com/questions/7815374/get-element-inside-element-by-class-and-id-javascript
+*/ 
+		const text_input_element
+		      = document.getElementById("text_container").getElementsByTagName("input")[0];
+		const rx_txt_sub = new BehaviorSubject(text_input_element.value);
+
+		const size_input_element
+		      = document.getElementById("size_container").getElementsByTagName("input")[0];
+		const rx_size_sub = new BehaviorSubject(size_input_element.value);
+
+		const color_input_element
+		      = document.getElementById("color_container").getElementsByTagName("input")[0];
+		const rx_color_sub = new BehaviorSubject(size_input_element.value);
+
+
+
+		const text_textbind = document.getElementById("text_bind");
+
+		rx_txt_sub.subscribe((val)=>{
+			text_textbind.innerText = val;
+		})
+		rx_size_sub.subscribe((val)=>{
+			text_textbind.style.fontSize = val + "px";
+		})
+		rx_color_sub.subscribe((val)=>{
+			text_textbind.style.color = val;
+		})
+
+		const bind = function(eType, elem, subject){
+			Observable.fromEvent(elem, eType).subscribe( (e : KeyboardEvent)=>{
+				subject.next(e.target.value);
+			})
+		}
+		bind('keyup',text_input_element, rx_txt_sub);
+		bind('change',size_input_element, rx_size_sub);
+		bind('change',color_input_element, rx_color_sub);
+
+	}
 
 
 
