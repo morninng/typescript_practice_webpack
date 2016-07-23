@@ -14,11 +14,10 @@ var simple_ob = new Simple_observable();
 simple_ob.Lig_sub_ob_3();
 */
 
-var rxjs_practice_obj = new Rxjs_LigPractice();
-rxjs_practice_obj.lig_practice_2_databind()
-
 /*
+var rxjs_practice_obj = new Rxjs_LigPractice();
+rxjs_practice_obj.lig_practice_3_game()
+*/
 
 var operator_test = new Rxjs_Operator_Test();
-operator_test.FlatMap_test1();
-*/
+operator_test.dom_get();

@@ -1,0 +1,75 @@
+■目的
+
+ Rxjsなどは、Npmインストールした時点で、
+ Rx.d.tsというようなtypescriptの型定義があるファイルが存在するので、
+import {Observable } from "./../../node_modules/rxjs/Rx";
+という形でimportすることができるがそれは、type定義をしているRx.d.tsが既に存在しているからであり、
+
+その他モジュールに関してはd.tsが存在していないのでそのインストール方法を調査
+　
+　
+　
+■実行手順
+
+　http://blog.shibayu36.org/entry/2016/03/24/092022
+
+◆初期設定
+　　npm install typings --save-dev
+　　typings init 
+　これで、typings.jsonが生成される。　
+　
+◆各モジュールの設定をインストールする。
+ JQUERYをインストールしようとすると、失敗する。
+　typings install jquery --global --save
+
+エラーメッセージ
+typings ERR! message Unable to find "jquery" ("npm") in the registry.
+typings ERR! message However, we found "jquery" for 1 other source: "dt"
+typings ERR! message You can install these using the "source" option.
+typings ERR! message We could use your help adding these typings to the registry: https://github.com/typings/registry
+typings ERR! caused by https://api.typings.org/entries/npm/jquery/versions/latest responded with 404, expected it to equal 200
+
+このエラーの対処法がこちらに記載
+http://kuroeveryday.blogspot.jp/2016/02/typescript-typings.html
+
+　typings install --save dt~jquery --global
+　　これでとおった。
+　　これにより、	typings folderに、
+　　 typings/global/jquery/index.d.ts が作成され、
+　　 typings/globals/jquery/index.d.tsに情報が追記される。
+　  
+◆コード内部からの参照方法
+　http://stackoverflow.com/questions/35283832/typescript-and-jquery-type-the-right-way-to-import-jquery-type
+　
+　import * as $ from "jquery";
+　
+　
+■■■■■　gsapの設定
+　
+　 typings search gsap
+  sourceが、dtの中に存在する。
+   typings install gsap
+   typings install gsap  --save --source dt 
+   typings install --save dt~gsap --global
+
+
+
+■■■■■　file system
+
+　　Searchしてもどこにもないので、d.tsを作成する。
+　　
+
+
+
+　
+◆他の
+　
+　typings install --save dt~gsap --global
+　
+　
+しかし、JqueryのTypingsはこちらに登録されているので、そこからデータを引っ張ってくる方法を調査する必要がある。
+https://github.com/DefinitelyTyped/DefinitelyTyped
+
+
+http://qiita.com/vvakame/items/72d22e33632178f7db24
+http://stackoverflow.com/questions/35210612/how-to-install-d-ts-file-from-githubdefinitelytypes-using-typings

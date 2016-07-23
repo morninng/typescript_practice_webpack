@@ -1,16 +1,14 @@
 "use strict";
 
 import {Observable, BehaviorSubject } from "./../../node_modules/rxjs/Rx";
-
-
-
-//import {$} from "jquery";
+//import {TimelineLite} from "./../../node_modules/gsap/src/minified/TimelineLite.min";
+import * as $ from "jquery";
 
 class Rxjs_LigPractice{
 
 	constructor(){};
 
-	lig_practice_1_drag(): any{
+	lig_practice_1_drag = function() {
 
 		const box_element = document.getElementById("box");
 		const mouseup_event = Observable.fromEvent(box_element, 'mouseup');
@@ -55,7 +53,7 @@ class Rxjs_LigPractice{
 	}
 
 
-	lig_practice_2_databind(): any{
+	lig_practice_2_databind = function() {
 
 /*
 how to retrieve element under some element
@@ -95,10 +93,117 @@ http://stackoverflow.com/questions/7815374/get-element-inside-element-by-class-a
 		bind('keyup',text_input_element, rx_txt_sub);
 		bind('change',size_input_element, rx_size_sub);
 		bind('change',color_input_element, rx_color_sub);
-
 	}
 
+	lig_practice_3_game = function() {
 
+		const keydown_observable = Observable.fromEvent(document, 'keydown');
+		const create_command = function(combination_key_arr, timeout : number, skill_execute){
+			const get_source = () =>{
+				let source = Observable.empty();
+				combination_key_arr.forEach((keyCode, index)=>{
+					let this_key_source = keydown_observable.filter((e: KeyboardEvent)=>{
+						let is_collect = (e.keyCode === keyCode);
+						if(is_collect === false){
+							throw Error('incorrect key pressed');
+						}else{
+							return true;
+						}
+					}).take(1);
+					if(index > 0){
+						this_key_source = this_key_source.timeout(timeout);
+					}
+					source = source.concat(this_key_source);
+				})
+				return source;
+			};
+
+
+			const watch = function(){
+				const source = get_source();
+				source.subscribe(
+					(e : KeyboardEvent)=>{
+						console.log(e.keyCode);
+						console.log("correct");
+					},
+					(error)=>{
+						console.log(error.message);
+						watch();
+					},
+					()=>{
+						console.log("completed");
+						watch();
+						skill_execute();
+					}
+				)
+			};
+			watch();
+		}
+
+//https://developer.mozilla.org/ja/docs/Web/API/element/classList
+//https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/jquery/jquery.d.ts
+// http://dx.24-7.co.jp/flash-like-js-animation/
+// hadoken_timeline
+
+		let $ken = $('.ken');
+		const $stage = $('.stage');
+		let $fireball = null;
+		const hadoken_init = function(){
+			$fireball = $('<div class = "fireball"></div>');
+			$ken.addClass('hadoken');
+			$stage.append($fireball);
+			console.log("hadoken init");
+		}
+
+		const hadoken_first = function(){
+			$fireball.addClass('moving').animate({
+				left: '+=250'
+			},3000, "linear");
+			console.log("hadoken first");
+		}
+
+		const hadoken_second = function(){
+			$ken.removeClass("hadoken");
+			console.log("hadoken_second");
+		}
+
+		const hadoken_third = function(){
+			$fireball.addClass('explode');
+			console.log("hadoken third");
+		}
+		const hadoken_timeline = [
+			{ "animation": hadoken_init, "interval": 100 },
+			{ "animation": hadoken_first, "interval": 1000 },
+			{ "animation": hadoken_second, "interval": 1000 },
+			{ "animation": hadoken_third, "interval": 1500 },
+		]
+
+		interface timeline_context{
+			animation : string,
+			interval : number
+		};
+
+		const execute_animation = (timeline) =>{
+			let interval_sum = 0;
+			let len = timeline.length;
+			for(var i=0; i<len; i++){
+				setTimeout(timeline[i].animation, interval_sum);
+				interval_sum = interval_sum + timeline[i].interval;
+			}
+		}
+
+		const skill = {
+			hadoken : () => {
+				console.log("execute hadoken");
+				execute_animation(hadoken_timeline);
+			},
+			senpukyaku: ()=>{
+			}
+		};
+		let keys = {left: 37,right: 39,	up: 38,	down: 40,a: 65,	s: 83};
+		create_command([keys.left, keys.down, keys.right, keys.a], 500, skill.hadoken);
+		//create_command([keys.right, keys.down, keys.left, keys.s], 500, skill.senpukyaku);
+	}
 
 }
 

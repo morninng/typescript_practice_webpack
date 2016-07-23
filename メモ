@@ -3,6 +3,65 @@
 http://qiita.com/kanase/items/c75a95f2b319d1a6103c
 
 
-
-
 http://qiita.com/bouzuya/items/63a6dfca0e3ebb0f5268
+
+
+jqueryなどの別モジュールをインストールしてtypescriptにてimportしても、
+module が見つからないといわれていた。
+これを見つけるようにする仕組みがこちら。
+http://blog.shibayu36.org/entry/2016/03/24/092022
+http://qiita.com/literalice/items/d83249a5646abcb0bec6
+http://kuroeveryday.blogspot.jp/2016/02/typescript-typings.html
+
+typing install jquery --ambient
+https://github.com/AngularClass/angular2-webpack-starter/issues/231
+■JqueryのTypings file
+https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/jquery/jquery.d.ts
+
+
+ jquery のTypingは登録されていないようで、
+ typings search jquery globalで検索してもでてこない。
+ typings search gsap global
+ typings search gsap --ambient
+ typings search jquery --ambient
+ 
+ ■typings　によるTypescriptの定義ファイルのインストール
+ 
+  typings install gsap --save global
+   typings install  --save --source dt gsap
+
+ ■Typingsがないので、自分で作成
+ 　
+ 　　export { TimelineLite } from './TimelineLite.min';
+ 　　を ./../../node_modules/gsap/src/minified/TimelineLite.d.ts
+ 　　に追加し、ソースコードないで次の一文を追加
+ 　　
+import {TimelineLite } from "./../../node_modules/gsap/src/minified/TimelineLite";
+
+
+■Typingsの取得フォルダ
+
+https://github.com/DefinitelyTyped/DefinitelyTyped
+
+ここに、gsapなども記載されている。ここからちゃんと取得する方法を見つけないと。
+http://definitelytyped.org/
+ なにか、設定する方法がある？
+
+
+
+http://smart.ataglance.jp/2016-02-04-manage-dts-by-typings/
+
+
+https://www.typescriptlang.org/docs/handbook/typings-for-npm-packages.html
+
+
+typing などのAngularの設定にかんする動画
+
+12 02 TypeScript Configuration File tsconfig json
+https://www.youtube.com/watch?v=uWK_C-ImBwM
+
+12 03 npm Package File package json and TypeScript Definitions File typings json
+https://www.youtube.com/watch?v=QNq5JstHNj8
+
+
+

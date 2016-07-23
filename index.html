@@ -3,6 +3,8 @@
   <meta charset="utf-8">
   <head>
     <title>Hello world!</title>
+    <link rel="stylesheet" type="text/css" href="dist/css/lig_practice_3_game.css">
+    <link rel="stylesheet" type="text/css" href="dist/css/lig_practice_1_drag.css">
     <link rel="stylesheet" type="text/css" href="dist/css/style.css">
 
   </head>
@@ -11,13 +13,13 @@
 
 <!------    ------>
 
-    <link rel="stylesheet" type="text/css" href="dist/css/lig_practice_1_drag.css">
+<div style="position: absolute; top:0px; left:0px;">
     <div class="container">
         <div id="box"><span>Drag Me</span></div>
     </div>
+</div>
 
-<br><br><br><br><br><br><br><br><br>vv
-
+<div style="position: absolute; top:150px; left:0px;">
     <div class="container">
         <h1 contenteditable="true" id="text_bind">TEXT</h1>
 
@@ -35,9 +37,29 @@
 
         <p id="combined"></p>
     </div>
+</div>
 
 
-	
+
+
+<div style="position: absolute; top:400px; left:0px;">
+<div class="container">
+    <div class="stage">
+        <div class="ken stance">
+        </div>
+    </div>
+    <div class="keyholder">
+        <dl>
+            <dt><span>←</span><span>↓</span><span>→</span><span>a</span></dt>
+            <dd>波動拳</dd>
+
+            <dt><span>→</span><span>↓</span><span>←</span><span>s</span></dt>
+            <dd>竜巻旋風脚</dd>
+        </dl>
+    </div>
+</div>
+
+</div>	
 
     <script src="./dist/js/bundle.js"></script>
 

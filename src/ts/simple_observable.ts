@@ -1,6 +1,6 @@
 "use strict";
 
-import {Observable , Subject } from "./../../node_modules/rxjs/Rx";
+import {Observable  } from "./../../node_modules/rxjs/Rx";
 
 //import {$} from "jquery";
 
