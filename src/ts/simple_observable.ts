@@ -1,6 +1,6 @@
 "use strict";
 
-import {Observable  } from "./../../node_modules/rxjs/Rx";
+import {Observable, Subject  } from "./../../node_modules/rxjs/Rx";
 
 //import {$} from "jquery";
 
@@ -71,6 +71,41 @@ class simple_observable{
 			}
 		);
 	}
+
+	IntervalObservable(): any{
+
+	    const clock$ = Observable.interval(1000);
+	    clock$.subscribe(
+	      (value)=>{
+	        console.log(value);
+	        }
+	    )
+	}
+
+	MouseMove(): void{
+
+		const mouse$ = Observable.fromEvent(document, 'mousemove')
+							.filter((move:MouseEvent) =>{
+								return move.clientY >=200
+							})
+							.map((move:MouseEvent)=>{
+								let position = 
+								{
+									x: move.clientX,
+									y: move.clientY
+								}
+								return position;
+							});
+		mouse$.subscribe(
+			(mouse_position) =>{
+				console.log(mouse_position);
+			}
+		);
+	}
+
+
+
+
 
 	ArrayObservable(): any{
 		const num_arr$ = Observable.from([1,2,3,4,5,6,7,8])
