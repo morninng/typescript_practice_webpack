@@ -1,7 +1,6 @@
 "use strict";
 
 import {Observable, Subject } from "./../../node_modules/rxjs/Rx";
-import  "./../../mode_modules/rxjs/add/operator/startWith";
 
 class Rxjs_Egghead_sample{
 

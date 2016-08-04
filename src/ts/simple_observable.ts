@@ -88,6 +88,9 @@ class simple_observable{
 							.filter((move:MouseEvent) =>{
 								return move.clientY >=200
 							})
+							.do((value)=>{
+								console.log(value)
+							})
 							.map((move:MouseEvent)=>{
 								let position = 
 								{
@@ -98,7 +101,7 @@ class simple_observable{
 							});
 		mouse$.subscribe(
 			(mouse_position) =>{
-				console.log(mouse_position);
+				console.log("----", mouse_position);
 			}
 		);
 	}

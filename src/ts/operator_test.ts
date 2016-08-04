@@ -255,9 +255,50 @@ class Rxjs_Operator_Test{
                     console.log("complete");
                 }
             )
-
-
     }
+
+
+
+    scan_array = function(){
+
+        const avg = Observable.from([1,2,3,4,5])
+        .scan( (prev, cur) => {
+            return {
+            sum: prev.sum + cur,
+            count: prev.count + 1
+            };
+        }, { sum: 0, count: 0 }).
+        do((obj) => {console.log(obj)})
+        .map(function(obj) {
+            return obj.sum / obj.count;
+        });
+
+        const subscription = avg.subscribe( function (x) {
+        console.log('average', x);
+        });
+    }
+
+
+    scan_interval = function(){
+
+        const avg = Observable.interval(1000)
+        .scan( (prev, cur) => {
+            return {
+            sum: prev.sum + cur,
+            count: prev.count + 1
+            };
+        }, { sum: 0, count: 0 }).
+        do((obj) => {console.log(obj)})
+        .map(function(obj) {
+            return obj.sum / obj.count;
+        });
+
+        const subscription = avg.subscribe( function (x) {
+        console.log('average', x);
+        });
+    }
+
+
 
 /*
     read_file_nodecallback = function(){
